@@ -1,24 +1,3 @@
-
-**TODO**: Delete these instructions before you submit your work.
-## Instructions
-
-1. Read Chapters 2 & 3 of [Pro Git][ProGit]. The chapters are short.
-2. Answer these questions using [Markdown format][markdown-cheatsheet] (also [Github Markdown][github-markdown]). 
-3. Place your answers between lines beginning with 3 backquotes, which tells Markdown it should be unformatted text, and write only the commands you would type (**no** shell prompt).  E.g.:
-   ```
-   git status         CORRECT
-   $ git status       WRONG  - you do not type "$"
-   ```
-4. Indent the 3 backquotes so they line up with the question text (3 leading spaces) so Markdown formats you answer as part of the numbered item.
-   Example:
-   ```
-   git init
-   ```  
-5. **Test that your answers are correct!** There is **no excuse** for incorrect answers since you can test your answers by experimentation.      
-6. Verify that your Markdown formatting is correct -- points deducted for bad formatting. VS Code and IntelliJ have markdown previewers. You should also preview it on Github, since Github Markdown is a bit non-standard.
-
-**TODO**: Delete these instructions before you submit your work. Points deducted for each "TODO" in this file.
-
 ## Using Git
 
 [Basics](#basics)    
@@ -46,14 +25,26 @@ In this file, directory paths are written with a forward slash as on MacOS, Linu
 2. When you install git on a new machine (or in a new user account) you should perform these 2 git commands to tell git your name and email.  These values are used in commits that you make:
    ```
    # Git configuration commands for a new account
-
-
+   git config --global user.name "<username>"
+   git config --global user.email <email>
    ```
 
 3. There are 2 ways to create a local Git repository.  Briefly descibe each one:
-   - todo: describe first way to create a local repo
-   - todo: describe second way to create a local repo
+   -  To create local Git repo in current directory:\
+      Use `git init` creates a new subdirectory named `.git.` Then you can begin tracking existing files and do an initial commit
+      with a few `git add` commands that specify the files you want to track, followed by a `git commit`
+      ```
+      git init
+      git add filename
+      git commit -m "commit message"
+      ```
+   -  To clone a remote repo to current directory:\
+      Use git clone to get a copy of an existing Git repository
 
+      For example, if you want to clone the Git linkable library called test-git, you can do it like this
+      ```
+      git clone https://github.com/ThanadolU/ISP-Test-Git.git
+      ```
 
 ## Adding and Changing Things
 
@@ -69,43 +60,42 @@ test/
     test_a.py
     ...
 ```     
-> TODO: Write the git command to perform each of these:
 
 1. Add README.md and *everything* in the `src` directory to the git staging area.
    ```
-   todo  your answer here
+   git add README.md src/
    ```
 
 2. Add `test/test_a.py` to the staging area (but not any other files).
    ```
-   todo  your answer
+   git add test/test_a.py
    ```
 
 3. List the names of files in the staging area.
    ```
-   todo  your answer
+   git status
    ```
 
 4. Remove `README.md` from the staging area. This is **very useful** if you accidentally add something you don't want to commit.
    ```
-   todo  your answer
+   git restore --staged README.md
    ```
 
 5. Commit everything in the staging area to the repository.
    ```
-   todo  your answer
+   git commit -m "commit everything in the staging area"
    ```
 
 6. In any project, there are some files and directories that you **should not** commit to git.    
    For a Python project, name *at least* files or directories that you should not commit to git:
-   - 
-   - 
-   -
+   - `.DS_Store`
+   - `__pycache__`
+   - `.pytest_cache`
 
 
 7. Command to move all the .py files from the `src` dir to the top-level directory of this repository. This command moves them in your working copy *and* in the git repo (when you commit the change):
    ```
-
+   git mv src/*.py .
    ```
 
 
@@ -116,21 +106,32 @@ test/
 
 ## Undo Changes and Recover Files
 
-> TODO: enter the git command to do each of these
-> For questions where you are showing a command, use triple-backquote marks (as above) so the text is formatted as code.
-
 1.  Display the differences between your *working copy* of `a.py` and the `a.py` in the *local repository* (HEAD revision):
-
+      ```
+      git diff HEAD a.py
+      ```
 
 2. Display the differences between your *working copy* of `a.py` and the version in the *staging area*. (But, if a.py is not in the staging area this will compare working copy to HEAD revision):
+      ```
+      git diff --cached a.py
+      ```
 
-3. **View changes to be committed:** Display the differences between files in the staging area and the versions in the repository. (You can also specify a file name to compare just one file.) 
+3. **View changes to be committed:** Display the differences between files in the staging area and the versions in the repository. (You can also specify a file name to compare just one file.)
+      ```
+      git diff --staged
+      ```
 
 
 4. **Undo "git add":** If `main.py` has been added to the staging area (`git add main.py`), remove it from the staging area:
+      ```
+      git restore --staged main.py
+      ```
 
 
 5. **Recover a file:** Command to replace your working copy of `a.py` with the most recent (HEAD) version in the repository.  This also works if you have deleted your working copy of this file.
+      ```
+      git checkout HEAD a.py
+      ```
 
 
 6. **Undo a commit:** Suppose you want to discard some commit(s) and move both HEAD and "master" to an earlier revision (an earlier commit)  Suppose the git commit graph looks like this (`aaaa`, etc, are the commit ids)
@@ -138,11 +139,14 @@ test/
    aaaa ---> bbbb ---> cccc ---> dddd [HEAD -> master]
    ``` 
    The command to reset HEAD and master to the commit id `bbbb`:
+   ```
+   git reset --hard bbbb
+   ```
 
 
 7. **Checkout old code:** Using the above example, the command to replace your working copy with the files from commit with id `aaaa`:
    ```
-   todo your answer here
+   git checkout aaaa
    ```
     Note:
     - Git won't let you do this if you have uncommitted changes to any "tracked" files.
@@ -159,13 +163,13 @@ test/
 
 2. Show the history (as above) including *all* branches in the repository and include a graph connecting the commits:
    ```
-
+   git log -a --graph
    ```
 
 
 3. List all the files in the current branch of the repository:
    ```
-   todo your answer
+   git ls-files
    ```
    Example output:
    ```
@@ -182,18 +186,46 @@ test/
 
 **TODO**: This section is free-form.  Create 4 numbered items for common branch-and-merge tasks you would like to remember and show the git command to do each one. (You are write *more* than 4 if you want.)
 
+1. Create new branch named `dev`:
+   ```
+   git branch dev
+   ```
+
+2. List the name of all branches:
+   ```
+   git branch
+   ```
+
+3. Switch to branch named `dev`:
+   ```
+   git checkout dev
+   ```
+   or
+   ```
+   git switch dev
+   ```
+
+4. Merge from `dev` to master branch, following these 2 steps:\
+   I ) Step one
+   ```
+   git switch master
+   ```
+   II ) Step two
+   ```
+   git merge dev
+   ```
 
 
 ## Favorites
 
-> TODO: Describe *at least* 1 task that you would like to remember, and the git command(s) to do it.
+* If we want to start iteration 1 of our work, we should use `git checkout -b <branch name>` or `git switch -c <branch name>` to switch to new branch and developing on that branch.
 
-
+* I always use these commands which are `git add <file name>`, `git status`, `git commit -m "<commit message>"`, and `git push`.
 
 ---
 ## Resources
 
-> TODO: Add your favorite Git resources (at least 1)
+* [Noble Desktop](https://www.nobledesktop.com/learn/git) or search on google with topic that you want to know more about git follow by "noble desktop"
 
 * [Pro Git Online Book][ProGit] Chapters 2 & 3 contain the essentials. Downloadable e-book is available, too. 
 * [Visual Git Reference](https://marklodato.github.io/visual-git-guide) one page with illustrations of git commands.
