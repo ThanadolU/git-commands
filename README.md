@@ -17,10 +17,10 @@ In this file, directory paths are written with a forward slash as on MacOS, Linu
 ## Basics
 
 1. When using Git locally, what are these?  Define each one in a sentence
-   * Staging area -
-   * Working copy -
-   * master -
-   * HEAD -
+   * Staging area - Files and changes marked for commit, but not yet committed.
+   * Working copy - The copy of files you work on.
+   * master - The default branch name in Git.
+   * HEAD - A label that refers to the "commit" your working copy is based on.
 
 2. When you install git on a new machine (or in a new user account) you should perform these 2 git commands to tell git your name and email.  These values are used in commits that you make:
    ```
