@@ -7,7 +7,7 @@
 
 2. View details about a remote repo named `origin`, including all the remote branches and local tracking branches for `origin`:
    ```
-   git show remote origin
+   git remote show origin
    ```
 
 3. (Pushing a new branch) You commit some files to the `dev-foo` branch and try to "push" them to Github, but it fails as shown here:
